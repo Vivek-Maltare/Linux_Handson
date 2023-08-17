@@ -1,0 +1,11 @@
+#include<stdio.h>
+#include<conio.h>
+int main()
+{
+while(1)
+{
+printf("Hello World");
+}
+}
+//***** TO RUN THIS PROGRAM IN BACKGROUND SIMPLY PUT AN & SIGN WHILE RUNNING IT. THIS WILL MAKE THE INFINITE LOOP RUN IN BACKGROUND *****.
+//***** FURTHER TO DISPLAY STATUS INFORMATION ABOUT THE RUNNING PROCESS WE CAN USE THE FOLLOWING COMMAND /proc/[pid]/stat *****. 
