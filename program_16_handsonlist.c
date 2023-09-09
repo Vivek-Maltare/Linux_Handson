@@ -6,17 +6,17 @@
 int main()
 {
   struct flock fp;
+  //SETTING FLOCK FP VARIABLES
+    fp.l_start = 0;
+    fp.l_len = 0;
+    fp.l_whence = SEEK_SET;
+    fp.l_pid = getpid();
   int fd;
   char c;
   printf("ENTER YOUR LOCKING CHOICE :R/W\n");
   scanf("%c",&c);
   if(c=='W')
   {
-    //SETTING FLOCK FP VARIABLES
-    fp.l_start = 0;
-    fp.l_len = 0;
-    fp.l_whence = SEEK_SET;
-    fp.l_pid = getpid();
     fp.l_type = F_WRLCK;
     if((fd = open("test.txt",O_RDWR)) == -1)
     {
@@ -37,7 +37,8 @@ int main()
     printf("PRESS W TO RELEASE LOCK :\n");
     getchar();
     getchar();
-    if((fcntl(fd,F_UNLCK,&fp)) == -1)
+    fp.l_type = F_UNLCK;
+    if((fcntl(fd,F_SETLKW,&fp)) == -1)
     {
       printf("LOCK COULD NOT BE RELEASED\n");
     }
@@ -48,6 +49,7 @@ int main()
   }
   else
   {
+    fp.l_type = F_RDLCK;
     if((fd = open("test.txt",O_RDWR)) == -1)
     {
       perror("ERROR : ");
@@ -67,7 +69,8 @@ int main()
     printf("PRESS R TO RELEASE LOCK :\n");
     getchar();
     getchar();
-    if((fcntl(fd,F_UNLCK,&fp)) == -1)
+    fp.l_type =F_UNLCK;
+    if((fcntl(fd,F_SETLKW,&fp)) == -1)
     {
       printf("LOCK COULD NOT BE RELEASED\n");
     }
