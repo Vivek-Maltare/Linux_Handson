@@ -3,7 +3,7 @@
 #include<fcntl.h>
 int main()
 {
- int fd=open("test.txt",O_RDWR|O_APPEND);
+ int fd=open("test.txt",O_RDWR|O_APPEND|O_CREAT,0644);
  if(fd<0)
  {
   perror("ERROR : ");
@@ -14,13 +14,12 @@ int main()
  //BOTH FILE DESCRIPTORS MODIFIES THE SAME FILE TEST.TXT
  write(fd,"writing using original file descriptor\n",39);
  write(copied_fd,"writing using copied file descriptor\n",37);
-
  // USING DUP2 SYSTEM CALL 
  if(fd>0)
  {
   close(fd);
  }
- fd= open("test2.txt",O_RDWR|O_APPEND);
+ fd= open("test2.txt",O_RDWR|O_APPEND|O_CREAT,0644);
  if(fd<0)
  {
   perror("ERROR :");
@@ -33,7 +32,7 @@ int main()
  {
   close(fd);
  }
- fd=open("test3.txt",O_RDWR|O_APPEND);
+ fd=open("test3.txt",O_RDWR|O_APPEND|O_CREAT,0644);
  int copied_fcntl = fcntl(fd, F_DUPFD,10);
  if(copied_fcntl<0)
  {
@@ -41,4 +40,5 @@ int main()
  }
  write(fd,"writing using original file descriptor :\n",39);
  write(copied_fcntl,"writing using copied file descriptor :\n",37); 
+ close(fd);
 }
