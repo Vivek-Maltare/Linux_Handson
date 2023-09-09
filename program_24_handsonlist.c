@@ -12,7 +12,7 @@ int main()
   if(pid == 0)
   {
    sleep(10);
-   printf("I AM AN ORPHAN CHILD PROCESS %d\n",getpid());
+   printf("I AM AN ORPHAN CHILD PROCESS %d\n",getpid(),getppid());
   }
 }
 
