@@ -26,7 +26,7 @@ int  main()
   else
   {
   // setting priority of current running process
-  nice(10);
+  nice(new_value);
   errno = 0;
   priority = getpriority(PRIO_PROCESS,0);
   if(errno == -1)
